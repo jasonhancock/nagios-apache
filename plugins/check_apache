@@ -26,7 +26,6 @@
 use strict;
 use warnings;
 
-use JSON;
 use LWP;
 use Nagios::Plugin;
 
