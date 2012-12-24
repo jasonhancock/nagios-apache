@@ -83,9 +83,14 @@ define command{
 }
 
 define service {
-    check_command                  check_apachep
+    check_command                  check_apache
     host_name                      somewebserver.example.com
     service_description            Apache Stats
-    use                            generic-service-graphed
+    use                            some-service-definition
 }
 ```
+
+NAGIOS 2.x NOTES:
+---------------------
+For Nagios 2.x, you need to use extended host/service objects. More information is here:  
+[http://docs.pnp4nagios.org/pnp-0.4/webfe](http://docs.pnp4nagios.org/pnp-0.4/webfe)
