@@ -50,24 +50,27 @@ the various states of all of the connections
 
 ![scoreboard](https://github.com/jasonhancock/nagios-apache/raw/master/example-images/check_apache_scoreboard.png)
 
-
+REQUIREMENTS:
+-------------
+pnp4nagios >= 0.6 (check_apache.php uses the "rrd" php class introduced in 0.6.x)  
+php >= 5.1  
+nagios >= 2  
 
 INSTALLATION:
 -------------
 
-Copy the plugins out of the plugins directory and put them into Nagios' plugins
+Copy the plugins from this repository (plugins/) into Nagios' plugins
 directory on the Nagios server (this is usually /usr/lib64/nagios/plugins on 
 a 64-bit RHEL/CentOS box). 
 
-Copy the pnp4nagios templates out of the pnp4nagios/templates directory and put
-them into pnp4nagios' templates directory (On EL6 using the pnp4nagios package
-from EPEL, this directory is /usr/share/nagios/html/pnp4nagios/templates).
+Copy the pnp4nagios templates from this repository (pnp4nagios/templates/) into pnp4nagios'
+templates directory (On EL6 using the pnp4nagios package from EPEL, this directory is 
+/usr/share/nagios/html/pnp4nagios/templates).
 
-Copy the pnp4nagios check commands configs out of the pnp4nagios/check\_commands
-directory and put them in pnp4nagios' check\_commands directory. Using the same
-package from EPEL as above, this is /etc/pnp4nagios/check\_commands. Do this
-BEFORE configuring the service checks in Nagios otherwise the RRD's will get 
-created with the wrong data types (To fix this, just delete the .rrd files and
+Copy the pnp4nagios check commands configurations from this repository (pnp4nagios/check_commands\)
+into pnp4nagios' check_commands directory. Using the same package from EPEL as above, this is 
+/etc/pnp4nagios/check_commands. Do this BEFORE configuring the service checks in Nagios otherwise 
+the RRD's will get created with the wrong data types (To fix this, just delete the .rrd files and
 start over).
 
 NAGIOS CONFIGURATION:
@@ -80,9 +83,14 @@ define command{
 }
 
 define service {
-    check_command                  check_apachep
+    check_command                  check_apache
     host_name                      somewebserver.example.com
     service_description            Apache Stats
-    use                            generic-service-graphed
+    use                            some-service-definition
 }
 ```
+
+NAGIOS 2.x NOTES:
+---------------------
+For Nagios 2.x, you need to use extended host/service objects. More information is here:  
+[http://docs.pnp4nagios.org/pnp-0.4/webfe](http://docs.pnp4nagios.org/pnp-0.4/webfe)
