@@ -62,7 +62,8 @@ my %factors = (
     'T' => 1024 * 1024 * 1024 * 1024,
     'G' => 1024 * 1024 * 1024,
     'M' => 1024 * 1024,
-    'k' => 1024
+    'k' => 1024,
+    ''  => 1
 );
 
 my $url = sprintf('http://%s:%d%s',
@@ -88,7 +89,7 @@ for(my $i=0; $i<@lines; $i++) {
         $counts{'idle'} = $2;
     }
 
-    if($lines[$i]=~m/Total accesses: (\d+) - Total Traffic: ([0-9\.]+) (\w)B/) {
+    if($lines[$i]=~m/Total accesses: (\d+) - Total Traffic: ([0-9\.]+) (\w?)B/) {
         $counts{'hits'} = $1;
         $counts{'bytes'} = int($2 * $factors{$3});
     }
